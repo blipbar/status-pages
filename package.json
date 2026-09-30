@@ -1,0 +1,81 @@
+{
+  "name": "status-pages",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "blipkit build",
+    "dev": "blipkit dev",
+    "validate": "blipkit validate",
+    "typecheck": "tsc --noEmit",
+    "pretest": "tsc -p tsconfig.test.json",
+    "test": "node --test test-build/test/*.test.js",
+    "pack": "blipkit pack"
+  },
+  "blipbar": {
+    "id": "app.blipbar.status-pages",
+    "title": "Status Pages",
+    "description": "Incidents at the services you depend on, from their status pages: Claude, OpenAI, GitHub, Cloudflare, Vercel and other pages made with Atlassian Statuspage or incident.io.",
+    "icon": "waveform.path.ecg",
+    "author": "Blipbar",
+    "categories": [
+      "Developer Tools"
+    ],
+    "interval": "2m",
+    "triggers": {
+      "webhook": false,
+      "watch": []
+    },
+    "preferences": [
+      {
+        "name": "pages",
+        "title": "Status pages",
+        "type": "textfield",
+        "required": true,
+        "multiline": true,
+        "default": "https://status.claude.com\nhttps://status.openai.com\nhttps://www.githubstatus.com",
+        "placeholder": "https://status.claude.com Claude Code, Claude API",
+        "description": "One page per line, with its https://. To watch only some of a page, put the parts after the address, the way the page names them, with commas between."
+      },
+      {
+        "name": "alertFor",
+        "title": "Alert for",
+        "type": "dropdown",
+        "default": "any",
+        "description": "With Outages only, a page that's just degraded stays in the list without lighting up the notch.",
+        "data": [
+          {
+            "title": "Any incident",
+            "value": "any"
+          },
+          {
+            "title": "Outages only",
+            "value": "outages"
+          }
+        ]
+      }
+    ],
+    "permissions": {
+      "network": [
+        "{pages}"
+      ],
+      "files": [],
+      "exec": []
+    }
+  },
+  "devDependencies": {
+    "@blipbar/api": "^0.1.2",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  },
+  "description": "Blipbar extension: incidents at the services you depend on, from their status pages.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blipbar/status-pages"
+  },
+  "homepage": "https://github.com/blipbar/status-pages#readme",
+  "bugs": {
+    "url": "https://github.com/blipbar/status-pages/issues"
+  }
+}
